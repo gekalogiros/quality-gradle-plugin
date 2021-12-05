@@ -1,0 +1,8 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        // Required for fetching various quality plugins used by current all-in-one plugin
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'quality-gradle-plugin-consumer'

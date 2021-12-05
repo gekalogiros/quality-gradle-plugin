@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.gkalogiros:quality-gradle-plugin:0.0.1'
+    }
+}
+
+plugins {
+    id 'com.gkalogiros.quality' version '0.0.1' apply true
+}
+
+repositories {
+    mavenCentral()
+}
+
+def libs = [
+        'junit': 'org.junit.jupiter:junit-jupiter:5.4.2',
+        'junit-api': 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+]
+
+dependencies {
+    testImplementation libs.junit
+    permitTestUnusedDeclared libs.junit
+    permitTestUsedUndeclared libs['junit-api']
+}
+
+test {
+    useJUnitPlatform()
+}

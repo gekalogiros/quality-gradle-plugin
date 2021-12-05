@@ -1,0 +1,50 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://plugins.gradle.org/m2'
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+group 'com.gkalogiros'
+version "${version}"
+
+dependencies {
+    implementation 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.0-beta.7'
+    implementation 'ca.cutterslade.gradle:gradle-dependency-analyze:1.8.2'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'com.gkalogiros.quality'
+            implementationClass = 'com.gkalogiros.quality.QualityPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            groupId = 'com.gkalogiros'
+            artifactId = 'quality-gradle-plugin'
+            version = project.version
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
